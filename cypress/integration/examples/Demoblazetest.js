@@ -4,7 +4,7 @@ describe('Home page Test Suite', () => {
     beforeEach(() => {
         cy.visit('https://www.demoblaze.com/');
       });
-/*
+
     //Check that pictures in the slider can be scrolled
     it('Pictures in the slider can be scrolled', () => {
         cy.get('.carousel-control-next-icon').click()
@@ -16,12 +16,12 @@ describe('Home page Test Suite', () => {
 
     //Check that categories change the displayed product on the page
     it('Categories change the displayed product on the page', () => {
-        cy.contains('Phones').click()
         cy.wait(1000)
+        cy.contains('Phones').click()
         cy.get('.card-title').should('be.visible').and('have.length', 7) 
         cy.contains('Laptops').click()
-        cy.wait(1000)
         cy.get('.card-title').should('be.visible').and('have.length', 6)
+        cy.wait(1000)
         cy.contains('Monitor').click()
         cy.get('.card-title').should('be.visible').and('have.length', 2)
     })
@@ -78,7 +78,7 @@ describe('Home page Test Suite', () => {
       cy.get(".item > img").should('be.visible')
       cy.contains('Add to cart').should('be.visible')
     })
-    */
+
     //Check that when clicking on the “Add to cart” button, the product is added to the cart
     it('When clicking on the “Add to cart” button, the product is added to the cart', () => {
       cy.get('.card').contains('Samsung galaxy s6').click()
@@ -92,4 +92,42 @@ describe('Home page Test Suite', () => {
       cy.contains('Cart').click()
       cy.get('.success').contains('Samsung galaxy s6')
     })
+    
+
+    //Check that the shopping cart page opens and closes
+    it('Shopping cart page opens and closes', () => {
+      cy.contains('Cart').click()
+      cy.contains('Home').click()
+    })
+
+    //Check that multiple products can be added to the cart
+    it('Multiple products can be added to the cart', () => {
+      cy.get('.card').contains('Samsung galaxy s6').click()    
+      cy.contains('Add to cart').click().click()
+      cy.contains('Cart').click()
+    })
+
+    //Check that items in the cart can be removed
+    it('Items in the cart can be removed', () => {
+      cy.get('.card').contains('Samsung galaxy s6').click()
+      cy.contains('Add to cart').click().click()
+      cy.contains('Cart').click()
+      cy.wait(2000)
+      cy.get('.success').each((product) => {
+        cy.wrap(product).within(() => {
+        cy.contains('Delete').click()
+        })
+      })
+    })
+
+    //Check that the “Place order” button opens a modal window with the ordering process
+    it('“Place order” button opens a modal window with the ordering process', () => {
+      cy.get('.card').contains('Samsung galaxy s6').click()
+      cy.contains('Add to cart').click()
+      cy.contains('Cart').click()
+      cy.contains('Place Order').click()
+      cy.get('.modal-dialog').should('be.visible')
+    })
 })
+
+
