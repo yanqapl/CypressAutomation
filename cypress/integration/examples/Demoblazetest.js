@@ -26,25 +26,23 @@ describe('Home page Test Suite', () => {
         cy.get('.card-title').should('be.visible').and('have.length', 2)
     })
 
-    //Check that when you click on a product, you are redirected to the card of the corresponding product
-    it('Click on a product redirecting to the card of the corresponding product', () => {
-        cy.contains('Phones').click()
-    */
+
+    
     //Check that the products are displayed with their detailed information (name, price and description)
     it('Products are displayed with their detailed information', () => {
         cy.contains('Phones').click()
         cy.get('.card-block').each((card) => {
             cy.wrap(card).within(() => {
                 cy.get('.card-title').should('be.visible')
-                cy.get('h5').should('be.visible').contains('$'); 
+                cy.get('h5').should('be.visible').contains('$')
                 cy.get('#article').should('be.visible')
-              });
-        });
+              })
+        })
         cy.contains('Laptops').click()
         cy.get('.card-block').each((card) => {
             cy.wrap(card).within(() => {
                 cy.get('.card-title').should('be.visible')
-                cy.get('h5').should('be.visible').contains('$'); 
+                cy.get('h5').should('be.visible').contains('$')
                 cy.get('#article').should('be.visible')
               });
         });
@@ -52,9 +50,24 @@ describe('Home page Test Suite', () => {
         cy.get('.card-block').each((card) => {
             cy.wrap(card).within(() => {
                 cy.get('.card-title').should('be.visible')
-                cy.get('h5').should('be.visible').contains('$'); 
+                cy.get('h5').should('be.visible').contains('$') 
                 cy.get('#article').should('be.visible')
-              });
-        });
+              })
+        })
+    })
+    */
+
+    //Check that when you click on a product, you are redirected to the card of the corresponding product
+    it('Click on a product redirecting to the card of the corresponding product', () => {
+        cy.wait(1000)
+        cy.contains('Monitor').click()
+        cy.wait(1000)
+        cy.get('.card').each(($card) => {
+          cy.contains('Monitor').click()
+          const productName = $card.find('.card-title').text()
+          cy.contains(productName).click()
+          cy.get('.name').should('have.text', productName)
+          cy.go('back')
+        })
     })
 })
