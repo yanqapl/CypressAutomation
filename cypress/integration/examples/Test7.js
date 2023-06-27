@@ -7,7 +7,7 @@ describe('My Seventh Test Suite', () => {
 it('My FirstTest case', () => {
 
     //Window in window (changing domain)
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+    cy.visit(Cypress.env('url')+"/AutomationPractice/")
 
     cy.get('#opentab').then(function(el)
     {
