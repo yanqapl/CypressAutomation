@@ -5,8 +5,8 @@ module.exports = defineConfig({
   defaultCommandTimeout: 6000,
   pageLoadTimeout: 10000,
   env:{
-    url : "https://rahulshettyacademy.com"
-  },
+    url : "https://rahulshettyacademy.com"      /////// start java -jar jenkins.war -httpPort=5040 ///go to http://localhost:8080/ 
+  },                                            /////// login- admin; pass- ac3ae5c284194c5ab5fcda855cf2eb43
   retries: {
     runMode: 1,
     },
