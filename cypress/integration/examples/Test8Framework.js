@@ -6,12 +6,13 @@ import ProductPage from '../pageObjects/ProductPage'
 describe('Framework', function () {
     
     before(function () {
+        
         // runs once before all tests in the block
         cy.fixture('example').then(function(data) 
         {
           this.data=data
         })
-      })
+    })
 
 it('Demo example', function () {
 
@@ -27,8 +28,8 @@ const productPage= new ProductPage()
     homePage.getEditBox().should('have.attr','minlength','2')
     homePage.getEntrepreneaur().should('be.disabled')
     cy.pause()
-    homePage.getShopTab().click()
     Cypress.config('defaultCommandTimeout',8000)
+    homePage.getShopTab().click()
 
     this.data.productName.forEach(function(element){
     cy.selectProduct(element)
@@ -68,5 +69,5 @@ const productPage= new ProductPage()
 
 
 
-    })
+  })
 })

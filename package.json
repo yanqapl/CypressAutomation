@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules\\.bin\\cypress run",
-    "headTest": "npm run test--headed",
+    "test": "npx cypress run",
+    "headTest": "npm run test --headed",
     "chromeTest": "npm run test -- --browser chrome",
     "recordDashBoardTest": "npm run test -- --record --key 0edff888-9fd3-412c-99c0-be41ed3c6214",
     "GreenKartTest": "npm run test -- --spec \"cypress/integration/GreenKart/*\""
@@ -15,5 +15,9 @@
   "devDependencies": {
     "cypress": "^12.11.0",
     "cypress-iframe": "^1.0.1"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.1",
+    "@cypress/browserify-preprocessor": "latest"
   }
 }
