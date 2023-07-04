@@ -1,5 +1,6 @@
-import HomePage from '../pageObjects/HomePage'
-import ProductPage from '../pageObjects/ProductPage'
+/// <reference types="Cypress" />
+import HomePage from '../../pageObjects/HomePage';
+import ProductPage from '../../pageObjects/ProductPage';
 import { Given,When,Then } from "@badeball/cypress-cucumber-preprocessor";
 
 //cypress run --spec cypress\integration\examples\BDD\*.feature --headed --browser chrome
@@ -8,14 +9,14 @@ import { Given,When,Then } from "@badeball/cypress-cucumber-preprocessor";
 
 const homePage= new HomePage()
 const productPage= new ProductPage()
-
+let name
 Given('I open ECommerce Page', ()=>
 {
     cy.visit(Cypress.env('url')+'/angularpractice/')
 })
 
 // When I add items to Cart
-When('I add items to Cart', ()=>
+When('I add items to Cart', function ()
 {
     homePage.getShopTab().click()
 
@@ -26,7 +27,7 @@ When('I add items to Cart', ()=>
 })
 
 //And Validate the total prices
-And('Validate the total prices', ()=>
+When('Validate the total prices', ()=>
 {
     var sum=0
     cy.get('tr td:nth-child(4) strong').each(($el, index, $list)=> {
@@ -65,21 +66,23 @@ Then('select the country submit and verify Thankyou', ()=>
 //When I fill the form details
 When('I fill the form details',function(dataTable)
 {
-    homePage.getEditBox().type(this.data.name)
-    homePage.getGender().select(this.data.gender)
+    // [bobz , male ]
+    name = dataTable.rawTable[1][0]
+    homePage.getEditBox().type(dataTable.rawTable[1][0])
+    homePage.getGender().select(dataTable.rawTable[1][1])
 })
 
 //Then validate the forms behaviour
 Then('validate the forms behaviour',function()
 {
-    homePage.getTwoWayDataBinding().should('have.value',this.data.name)
+    homePage.getTwoWayDataBinding().should('have.value',name)
     homePage.getEditBox().should('have.attr','minlength','2')
     homePage.getEntrepreneaur().should('be.disabled')
     Cypress.config('defaultCommandTimeout',8000)
 })
 
 //And select the Shop Page
-And('select the Shop Page', ()=>
+Then('select the Shop Page', ()=>
 {
     homePage.getShopTab().click()
 })

@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-import HomePage from '../pageObjects/HomePage'
-import ProductPage from '../pageObjects/ProductPage'
+import HomePage from './pageObjects/HomePage'
+import ProductPage from './pageObjects/ProductPage'
 
 
 describe('Framework', function () {
@@ -37,6 +37,7 @@ const productPage= new ProductPage()
     productPage.checkOutButton().click()
     var sum=0
 
+    //calculation of the total
     cy.get('tr td:nth-child(4) strong').each(($el, index, $list)=> {
 
       const amount=$el.text()
