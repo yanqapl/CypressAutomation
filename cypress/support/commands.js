@@ -17,6 +17,17 @@ cy.get('h4.card-title').each(($el, index, $list) => {
     }
     })
 })
+Cypress.Commands.add("LoginAPI", ()=> {
+
+    cy.request("POST","https://rahulshettyacademy.com/api/ecom/auth/login",
+    {"userEmail":"ncmouu@fexbox.org","userPassword":"Iamking@00"}).
+    then(function(response)
+    {
+        expect(response.status).to.eq(200)
+        Cypress.env('token',response.body.token);
+    })
+
+})
 
 //
 // -- This is a parent command --
