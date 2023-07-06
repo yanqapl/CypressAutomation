@@ -6,8 +6,8 @@ const sqlServer = require('cypress-sql-server');
 async function setupNodeEvents(on, config) {
 
   config.db = {
-    userName: "yanqadmin",
-    password: "A789852z!",
+    userName: "*********",
+    password: "*********",
     server: "yanqademo.database.windows.net",
     options: {
         database: "yanqademo",
