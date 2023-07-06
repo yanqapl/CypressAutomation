@@ -1,13 +1,28 @@
 const { defineConfig } = require("cypress");
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
 const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
+const sqlServer = require('cypress-sql-server');
 
 async function setupNodeEvents(on, config) {
+
+  config.db = {
+    userName: "yanqadmin",
+    password: "A789852z!",
+    server: "yanqademo.database.windows.net",
+    options: {
+        database: "yanqademo",
+        encrypt: true,
+        rowCollectionOnRequestCompletion: true
+    }
+  }
+
+  tasks = sqlServer.loadDBPlugin(config.db);
+  on('task', tasks);
+  
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
   await preprocessor.addCucumberPreprocessorPlugin(on, config)
 
   on("file:preprocessor", browserify.default(config));
-
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }

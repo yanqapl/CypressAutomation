@@ -21,6 +21,7 @@
   "devDependencies": {
     "cypress": "^12.11.0",
     "cypress-iframe": "^1.0.1",
+    "cypress-sql-server": "^1.0.0",
     "multiple-cucumber-html-reporter": "^3.4.0"
   },
   "dependencies": {
