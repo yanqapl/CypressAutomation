@@ -2,6 +2,8 @@ const { defineConfig } = require("cypress");
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
 const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
 const sqlServer = require('cypress-sql-server');
+const excelToJson = require('convert-excel-to-json');
+const fs = require('fs');
 
 async function setupNodeEvents(on, config) {
 
@@ -24,6 +26,19 @@ async function setupNodeEvents(on, config) {
 
   on("file:preprocessor", browserify.default(config));
   // Make sure to return the config object as it might have been modified by the plugin.
+
+  on('task',{
+
+    excelToJsonConverter(filePath)
+    {
+      const result = excelToJson({
+      source: fs.readFileSync(filePath)
+      });
+      return result;
+    }
+
+  })
+
   return config;
 }
 module.exports = defineConfig({

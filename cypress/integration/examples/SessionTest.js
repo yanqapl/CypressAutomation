@@ -21,7 +21,7 @@ describe('JWT Session', () => {
     })
     })
 
-    it('is logged in through local storage', ()=>{
+    it('is logged in through local storage and validate CSV', ()=>{
     
         cy.LoginAPI().then(function() 
          {
